@@ -3,6 +3,8 @@ package com.wzgiceman.rxretrofitlibrary.retrofit_rx.http;
 import android.util.Log;
 
 import com.trello.rxlifecycle.android.ActivityEvent;
+import com.trello.rxlifecycle.android.FragmentEvent;
+import com.trello.rxlifecycle.components.RxFragment;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import com.wzgiceman.rxretrofitlibrary.retrofit_rx.Api.BaseApi;
 import com.wzgiceman.rxretrofitlibrary.retrofit_rx.RxRetrofitApp;
@@ -34,15 +36,21 @@ public class HttpManager {
     private SoftReference<HttpOnNextListener> onNextListener;
     private SoftReference<HttpOnNextSubListener> onNextSubListener;
     private SoftReference<RxAppCompatActivity> appCompatActivity;
+    private SoftReference<RxFragment> appFragment;
 
     public HttpManager(HttpOnNextListener onNextListener, RxAppCompatActivity appCompatActivity) {
-        this.onNextListener = new SoftReference(onNextListener);
-        this.appCompatActivity = new SoftReference(appCompatActivity);
+        this.onNextListener = new SoftReference<>(onNextListener);
+        this.appCompatActivity = new SoftReference<>(appCompatActivity);
     }
 
     public HttpManager(HttpOnNextSubListener onNextSubListener, RxAppCompatActivity appCompatActivity) {
-        this.onNextSubListener = new SoftReference(onNextSubListener);
-        this.appCompatActivity = new SoftReference(appCompatActivity);
+        this.onNextSubListener = new SoftReference<>(onNextSubListener);
+        this.appCompatActivity = new SoftReference<>(appCompatActivity);
+    }
+
+    public HttpManager(HttpOnNextListener onNextListener,RxFragment rxFragment){
+        this.onNextListener = new SoftReference<>(onNextListener);
+        this.appFragment = new SoftReference<>(rxFragment);
     }
 
 
@@ -97,7 +105,7 @@ public class HttpManager {
                 /*生命周期管理*/
                 //.compose(appCompatActivity.get().bindToLifecycle())
                 //Note:手动设置在activity onDestroy的时候取消订阅
-                .compose(appCompatActivity.get().bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(getTransformer())
                 /*返回数据统一判断*/
                 .map(new ResulteFunc())
                 /*http请求线程*/
@@ -138,4 +146,8 @@ public class HttpManager {
         return loggingInterceptor;
     }
 
+    private Observable.Transformer getTransformer(){
+        if(appFragment!=null) return appFragment.get().bindUntilEvent(FragmentEvent.DESTROY);
+        else return appCompatActivity.get().bindUntilEvent(ActivityEvent.DESTROY);
+    }
 }

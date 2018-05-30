@@ -1,6 +1,11 @@
 package com.wzgiceman.rxretrofitlibrary.retrofit_rx.exception;
 
 
+import android.provider.Settings;
+
+import com.wzgiceman.rxretrofitlibrary.R;
+import com.wzgiceman.rxretrofitlibrary.retrofit_rx.RxRetrofitApp;
+
 import org.json.JSONException;
 
 import java.net.ConnectException;
@@ -17,10 +22,10 @@ import retrofit2.adapter.rxjava.HttpException;
  */
 
 public class FactoryException {
-    private static final String HttpException_MSG = "网络错误";
-    private static final String ConnectException_MSG = "连接失败";
-    private static final String JSONException_MSG = "fastjeson解析失败";
-    private static final String UnknownHostException_MSG = "无法解析该域名";
+    private static final String HttpException_MSG = RxRetrofitApp.getApplication().getString(R.string.http_error);
+    private static final String ConnectException_MSG = RxRetrofitApp.getApplication().getString(R.string.connect_error);
+    private static final String JSONException_MSG = RxRetrofitApp.getApplication().getString(R.string.json_error);
+    private static final String UnknownHostException_MSG = RxRetrofitApp.getApplication().getString(R.string.unknown_host_error);
 
     /**
      * 解析异常

@@ -10,10 +10,11 @@ public interface HttpOnNextListener {
     /**
      * 成功后回调方法
      *
-     * @param resulte
-     * @param method
+     * @param result 返回的结果
+     * @param isCache 是否是缓存内容
+     * @param method 对应的接口
      */
-    void onNext(String resulte, String method);
+    void onNext(String result, boolean isCache, String method);
 
     /**
      * 失败

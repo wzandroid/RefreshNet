@@ -1,8 +1,8 @@
 package com.wzgiceman.rxretrofitlibrary.retrofit_rx.Api;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 
+import com.trello.rxlifecycle.components.RxFragment;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import com.wzgiceman.rxretrofitlibrary.retrofit_rx.http.HttpManager;
 import com.wzgiceman.rxretrofitlibrary.retrofit_rx.listener.HttpOnNextListener;
@@ -24,6 +24,10 @@ public class HttpManagerApi extends BaseApi {
 
     public HttpManagerApi(HttpOnNextSubListener onNextSubListener, RxAppCompatActivity appCompatActivity) {
         manager = new HttpManager(onNextSubListener, appCompatActivity);
+    }
+
+    public HttpManagerApi(HttpOnNextListener onNextListener, RxFragment fragment){
+        manager = new HttpManager(onNextListener,fragment);
     }
 
     protected Retrofit getRetrofit() {
