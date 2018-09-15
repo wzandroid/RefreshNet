@@ -2,6 +2,7 @@ package com.wz.refreshnet.Utils;
 
 /**
  * Created by mac1 on 2016/6/7.
+ * Debut 模式下的日志输出类
  */
 public class LogUtil {
 

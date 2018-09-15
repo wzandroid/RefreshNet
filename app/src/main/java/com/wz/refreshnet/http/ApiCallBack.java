@@ -15,7 +15,7 @@ public abstract class ApiCallBack implements HttpOnNextListener {
     }
 
     @Override
-    public void onNext(String resulte, String method) {
+    public void onNext(String resulte, boolean isCache, String method) {
         //可以根据公司的需求进行统一的请求成功的逻辑处理
 
     }

@@ -44,7 +44,6 @@ public class HttpManagerApi extends BaseApi {
         return null;
     }
 
-    @Override
     public ProgressDialog getDialog() {
         return null;
     }
