@@ -6,5 +6,11 @@ package com.wz.refreshnet.http;
  */
 
 public class ApiUrl {
+    public static final String BASE_URL = "https://api.douban.com/v2/"; //豆瓣评分baseUrl
+
     public static final String UPLOAD_IMAGE = "";
+
+    public static final String GET_BOOK = "book/{id}";
+
+    public static final String TOP_250 = "top250";
 }

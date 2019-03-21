@@ -6,4 +6,20 @@
     android:layout_height="match_parent"
     tools:context="com.wz.refreshnet.MainActivity">
 
+    <Button
+        android:id="@+id/book_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/book_by_id_tv"
+        android:onClick="onClick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/result_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_btn"/>
 </android.support.constraint.ConstraintLayout>

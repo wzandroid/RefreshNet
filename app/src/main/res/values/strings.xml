@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RefreshNet</string>
     <string name="loading">加载中……</string>
+    <string name="book_by_id_tv">Get请求演示</string>
 </resources>

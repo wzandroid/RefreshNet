@@ -1,11 +1,13 @@
-package com.wz.refreshnet.Global;
+package com.wz.refreshnet.global;
+
+import com.wz.refreshnet.http.ApiUrl;
 
 /**
  * Created by User on 2018/5/30.
  */
 
 public class GlobalConstant {
-    private static final String HOST = "";
+    private static final String HOST = ApiUrl.BASE_URL;
     private static final String TEST_HOST = "";
     private static boolean IS_TEST = false;
 

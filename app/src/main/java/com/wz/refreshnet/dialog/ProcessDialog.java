@@ -23,7 +23,7 @@ public class ProcessDialog extends ProgressDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_progress);
-        textView = (TextView) findViewById(R.id.loading_tv);
+        textView = findViewById(R.id.loading_tv);
     }
 
     public void setLoadText(String msg){

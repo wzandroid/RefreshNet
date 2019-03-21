@@ -41,6 +41,7 @@ public class HttpManager {
     public HttpManager(HttpOnNextListener onNextListener, RxAppCompatActivity appCompatActivity) {
         this.onNextListener = new SoftReference<>(onNextListener);
         this.appCompatActivity = new SoftReference<>(appCompatActivity);
+        this.appFragment = null;
     }
 
     public HttpManager(HttpOnNextSubListener onNextSubListener, RxAppCompatActivity appCompatActivity) {
@@ -60,7 +61,7 @@ public class HttpManager {
      * @param basePar 封装的请求数据
      */
     public void doHttpDeal(final BaseApi basePar) {
-        Retrofit retrofit = getReTrofit(basePar.getConnectionTime(), basePar.getBaseUrl());
+        Retrofit retrofit = getRetrofit(basePar.getConnectionTime(), basePar.getBaseUrl());
         httpDeal(basePar.getObservable(retrofit), basePar);
     }
 
@@ -72,22 +73,19 @@ public class HttpManager {
      * @param baseUrl
      * @return
      */
-    public Retrofit getReTrofit(int connectTime, String baseUrl) {
+    public Retrofit getRetrofit(int connectTime, String baseUrl) {
         //手动创建一个OkHttpClient并设置超时时间缓存等设置
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(connectTime, TimeUnit.SECONDS);
         if (RxRetrofitApp.isDebug()) {
             builder.addInterceptor(getHttpLoggingInterceptor());
         }
-
-        /*创建retrofit对象*/
-        final Retrofit retrofit = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .client(builder.build())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(baseUrl)
                 .build();
-        return retrofit;
     }
 
     /**
@@ -103,7 +101,7 @@ public class HttpManager {
                 /*异常处理*/
                 .onErrorResumeNext(new ExceptionFunc())
                 /*生命周期管理*/
-                //.compose(appCompatActivity.get().bindToLifecycle())
+//                .compose(appCompatActivity.get().bindToLifecycle())
                 //Note:手动设置在activity onDestroy的时候取消订阅
                 .compose(getTransformer())
                 /*返回数据统一判断*/
@@ -148,6 +146,6 @@ public class HttpManager {
 
     private Observable.Transformer getTransformer(){
         if(appFragment!=null) return appFragment.get().bindUntilEvent(FragmentEvent.DESTROY);
-        else return appCompatActivity.get().bindUntilEvent(ActivityEvent.DESTROY);
+        else  return appCompatActivity.get().bindUntilEvent(ActivityEvent.DESTROY);
     }
 }

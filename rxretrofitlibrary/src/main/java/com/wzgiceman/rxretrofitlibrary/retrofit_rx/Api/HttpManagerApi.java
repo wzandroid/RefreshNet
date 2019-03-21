@@ -31,7 +31,7 @@ public class HttpManagerApi extends BaseApi {
     }
 
     protected Retrofit getRetrofit() {
-        return  manager.getReTrofit(getConnectionTime(), getBaseUrl());
+        return  manager.getRetrofit(getConnectionTime(), getBaseUrl());
     }
 
 
